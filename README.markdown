@@ -70,7 +70,7 @@ bundle install
 
 ### Tag your instances
 
-Using the Amazon EC2 API or the AWS Management Console, add a `deploy` tag to all the instances you want Capistrano to deploy to.
+Using the Amazon EC2 API or the AWS Management Console, add a `environment` and `server_type` tag to all the instances you want Capistrano to deploy to.
 
 The value can be any string, but I do recommend it be both unique and easy to recognize. If you have used the [capistrano-ec2group](https://github.com/logandk/capistrano-ec2group), then this might be equal to whatever security group names you use.
 
@@ -86,12 +86,12 @@ APP-ENVIRONMENT
 require 'capistrano/ec2tag'
 
 task :production do
-  tag 'github-production', :web
+  tag 'production', 'web', :web
   logger.info 'Deploying to the PRODUCTION environment!'
 end
 
 task :staging do
-  tag 'github-staging', :web
+  tag 'staging', 'web', :web
   logger.info 'Deploying to the STAGING environment!'
 end
 ```
