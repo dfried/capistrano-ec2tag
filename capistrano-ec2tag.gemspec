@@ -3,7 +3,7 @@ $:.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'capistrano-ec2tag'
-  s.version     = '0.1.1'
+  s.version     = '0.1.2'
   s.authors     = ['Douglas Jarquin']
   s.email       = ['douglasjarquin@me.com']
   s.homepage    = 'https://github.com/douglasjarquin/capistrano-ec2tag'
