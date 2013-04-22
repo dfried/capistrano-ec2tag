@@ -1,5 +1,5 @@
 require 'aws-sdk'
-require 'capistrano/ext/multistage'
+# require 'capistrano/ext/multistage'
 unless Capistrano::Configuration.respond_to?(:instance)
   abort 'capistrano/ec2tag requires Capistrano >= 2'
 end
