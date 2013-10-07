@@ -7,10 +7,17 @@ end
 module Capistrano
   class Configuration
     module Tags
-      def tag(server_type, environment, *args)
+      def tag(rolename, *args)
         @ec2 ||= AWS::EC2.new({access_key_id: fetch(:aws_access_key_id), secret_access_key: fetch(:aws_secret_access_key)}.merge! fetch(:aws_params, {}))
-        @ec2.instances.filter('tag-key', 'environment').filter('tag-value', environment).filter('tag-key', 'server_type').filter('tag-value', server_type).each do |instance|
-          role(server_type, instance.dns_name || instance.ip_address, *args) if instance.status == :running
+        instances = @ec2.instances
+        if stage
+          instances = instances.filter('tag-key', 'environment').filter('tag-value', "#{stage}")
+        end
+        if fetch(:rolename_tag)
+          instances = instances.filter('tag-key', fetch(:rolename_tag)).filter('tag-value', rolename)
+        end
+        instances.each do |instance|
+          role(rolename, instance.dns_name || instance.ip_address, *args) if instance.status == :running
         end
       end
     end
